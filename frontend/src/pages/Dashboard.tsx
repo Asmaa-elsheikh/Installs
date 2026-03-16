@@ -11,18 +11,18 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const STAT_CONFIG = [
-  { key: 'totalCustomers',    label: 'Total Customers',      icon: Users,          bg: '#eff6ff', iconColor: '#2563eb' },
-  { key: 'activeContracts',   label: 'Active Contracts',     icon: FileText,       bg: '#f5f3ff', iconColor: '#7c3aed' },
-  { key: 'outstandingBalance',label: 'Outstanding Balance',  icon: DollarSign,     bg: '#fffbeb', iconColor: '#d97706' },
-  { key: 'overdueCount',      label: 'Overdue Installments', icon: AlertTriangle,  bg: '#fef2f2', iconColor: '#dc2626' },
+  { key: 'totalCustomers', label: 'Total Customers', icon: Users, bg: '#eff6ff', iconColor: '#2563eb' },
+  { key: 'activeContracts', label: 'Active Contracts', icon: FileText, bg: '#f5f3ff', iconColor: '#7c3aed' },
+  { key: 'outstandingBalance', label: 'Outstanding Balance', icon: DollarSign, bg: '#fffbeb', iconColor: '#d97706' },
+  { key: 'overdueCount', label: 'Overdue Installments', icon: AlertTriangle, bg: '#fef2f2', iconColor: '#dc2626' },
 ];
 
 function statusBadge(status: string) {
   const map: Record<string, { bg: string; color: string }> = {
-    late:    { bg: '#fee2e2', color: '#b91c1c' },
+    late: { bg: '#fee2e2', color: '#b91c1c' },
     partial: { bg: '#fef3c7', color: '#92400e' },
     pending: { bg: '#dbeafe', color: '#1d4ed8' },
-    paid:    { bg: '#dcfce7', color: '#15803d' },
+    paid: { bg: '#dcfce7', color: '#15803d' },
   };
   return map[status] || { bg: '#f1f5f9', color: '#475569' };
 }
@@ -44,16 +44,16 @@ export default function Dashboard() {
     </div>
   );
 
-  const statusData = data?.statusCounts.map(s => ({
+  const statusData = data?.statusCounts?.map(s => ({
     name: s.status.charAt(0).toUpperCase() + s.status.slice(1),
     value: s.count,
   })) || [];
 
   const statValues: Record<string, any> = {
-    totalCustomers:     data?.totalCustomers ?? 0,
-    activeContracts:    data?.activeContracts ?? 0,
+    totalCustomers: data?.totalCustomers ?? 0,
+    activeContracts: data?.activeContracts ?? 0,
     outstandingBalance: fmt(data?.outstandingBalance ?? 0),
-    overdueCount:       data?.overdueCount ?? 0,
+    overdueCount: data?.overdueCount ?? 0,
   };
 
   return (
