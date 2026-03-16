@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 
-const envPath = path.join(__dirname, 'config.env');
-if (fs.existsSync(envPath)) {
-  require('dotenv').config({ path: envPath });
-} else {
-  require('dotenv').config();
+if (process.env.NODE_ENV !== 'production') {
+    const envPath = path.resolve(__dirname, 'config.env');
+    if (fs.existsSync(envPath)) {
+        require('dotenv').config({ path: envPath });
+    }
 }
 const supabase = require('./supabaseClient');
 

@@ -10,7 +10,7 @@
         "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
         "dev:backend": "cd backend && npm run dev",
         "dev:frontend": "cd frontend && npm run dev",
-        "build": "npm run install:all && cd frontend && npm run build && cd .. && rm -rf public && mkdir -p public && cp -rv frontend/dist/. public/"
+        "build": "npm run install:all && cd frontend && npm run build && cd .. && rm -rf public && mkdir -p public && cp -rv frontend/dist/. ./public/"
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
@@ -20,8 +20,8 @@
         "bcryptjs": "^3.0.3",
         "cors": "^2.8.6",
         "dotenv": "^17.3.1",
-        "express": "^5.2.1",
+        "express": "^4.18.2",
         "jsonwebtoken": "^9.0.3",
-        "uuid": "^13.0.0"
+        "uuid": "^9.0.1"
     }
 }
