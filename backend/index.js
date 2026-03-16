@@ -1,5 +1,13 @@
 const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, 'config.env') });
+const fs = require('fs');
+
+const envPath = path.join(__dirname, 'config.env');
+if (fs.existsSync(envPath)) {
+    require('dotenv').config({ path: envPath });
+} else {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const cors = require('cors');
 
@@ -17,4 +25,8 @@ app.use('/api/settings', require('./routes/settings'));
 app.get('/api/health', (_, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`InstallmentPro API running on port ${PORT}`));
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`InstallmentPro API running on port ${PORT}`));
+}
+
+module.exports = app;

@@ -1,6 +1,12 @@
-// Supabase DB wrapper – mimics the tiny subset of better‑sqlite3 used in the app
-// c:/Users/Admin/Downloads/Installment App/backend/db.js
-require('dotenv').config({ path: './config.env' });
+const path = require('path');
+const fs = require('fs');
+
+const envPath = path.join(__dirname, 'config.env');
+if (fs.existsSync(envPath)) {
+  require('dotenv').config({ path: envPath });
+} else {
+  require('dotenv').config();
+}
 const supabase = require('./supabaseClient');
 
 // No‑op exec – kept for compatibility with the original SQLite init script

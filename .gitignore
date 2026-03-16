@@ -1,1 +1,10 @@
 node_modules
+dist
+.env
+config.env
+.DS_Store
+*.log
+.vercel
+frontend/dist
+backend/node_modules
+frontend/node_modules
