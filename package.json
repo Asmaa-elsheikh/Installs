@@ -10,7 +10,7 @@
         "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
         "dev:backend": "cd backend && npm run dev",
         "dev:frontend": "cd frontend && npm run dev",
-        "build": "npm run install:all && cd frontend && npm run build"
+        "build": "npm run install:all && cd frontend && npm run build && cd .. && rm -rf public && mkdir -p public && cp -rv frontend/dist/. public/"
     },
     "devDependencies": {
         "concurrently": "^8.2.2"
