@@ -1,5 +1,5 @@
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const supabase = require('../supabaseClient');
 const auth = require('../middleware/auth');
 
@@ -13,7 +13,7 @@ function generateInstallments(contractId, startDate, period, amount, paymentDay)
     due.setMonth(due.getMonth() + i);
     due.setDate(paymentDay);
     installments.push({
-      id: uuidv4(),
+      id: crypto.randomUUID(),
       contract_id: contractId,
       due_date: due.toISOString().split('T')[0],
       amount,
@@ -97,7 +97,7 @@ router.post('/', async (req, res) => {
     const end = new Date(start);
     end.setMonth(end.getMonth() + installment_period);
 
-    const id = uuidv4();
+    const id = crypto.randomUUID();
     const { error: insertErr } = await supabase.from('contracts').insert({
       id, user_id: req.userId, customer_id, product_name, product_category: product_category || null,
       total_price, deposit: deposit || 0, remaining_balance: remaining, installment_period,
@@ -144,7 +144,7 @@ router.post('/:id/pay', async (req, res) => {
     const { data: contract } = await supabase.from('contracts').select('*').eq('id', req.params.id).eq('user_id', req.userId).maybeSingle();
     if (!contract) return res.status(404).json({ error: 'Not found' });
 
-    const paymentId = uuidv4();
+    const paymentId = crypto.randomUUID();
     await supabase.from('payments').insert({
       id: paymentId, contract_id: req.params.id, installment_id: installment_id || null, amount, note: note || null
     });

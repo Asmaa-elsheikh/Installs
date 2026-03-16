@@ -1,5 +1,5 @@
 const express = require('express');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const supabase = require('../supabaseClient');
 const auth = require('../middleware/auth');
 
@@ -66,7 +66,7 @@ router.post('/', async (req, res) => {
     const { name, phone, national_id, address, notes } = req.body;
     if (!name) return res.status(400).json({ error: 'Name required' });
 
-    const id = uuidv4();
+    const id = crypto.randomUUID();
     const { error } = await supabase.from('customers').insert({
       id, user_id: req.userId, name, phone, national_id, address, notes
     });

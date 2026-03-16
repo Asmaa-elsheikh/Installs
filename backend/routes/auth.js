@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 const supabase = require('../supabaseClient');
 
 const router = express.Router();
@@ -17,7 +17,7 @@ router.post('/signup', async (req, res) => {
     if (existing) return res.status(409).json({ error: 'Email already registered' });
 
     const password_hash = await bcrypt.hash(password, 10);
-    const id = uuidv4();
+    const id = crypto.randomUUID();
 
     const { error: insertError } = await supabase.from('users').insert({
       id, business_name, email, password_hash
