@@ -7,12 +7,7 @@
         },
         {
             "source": "/(.*)",
-            "destination": "/frontend/dist/$1",
-            "check": true
-        },
-        {
-            "source": "/(.*)",
-            "destination": "/frontend/dist/index.html"
+            "destination": "/frontend/dist/$1"
         }
     ]
 }
